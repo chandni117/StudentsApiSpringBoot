@@ -1,11 +1,10 @@
 package com.springbootbasics.springBootPractice.service.impl;
 
 import java.util.List;
-import java.util.Optional;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import com.springbootbasics.springBootPractice.dto.AddStudentDto;
 import com.springbootbasics.springBootPractice.dto.StudentDTO;
 import com.springbootbasics.springBootPractice.entity.Student;
 import com.springbootbasics.springBootPractice.repository.StudentRepository;
@@ -35,6 +34,14 @@ public class StudentServiceImplementation implements StudentService {
 
         return modelMapper.map(student, StudentDTO.class);
        
+    }
+
+    @Override
+    public StudentDTO createNewStudent(AddStudentDto addnewStudentDto) {
+        Student newStudent = modelMapper.map(addnewStudentDto, Student.class);
+        System.out.print("newStudent " + newStudent);
+        Student student = studentRepository.save(newStudent);
+        return modelMapper.map(student, StudentDTO.class);        
     }
 
 }
