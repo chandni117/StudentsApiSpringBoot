@@ -3,6 +3,7 @@ package com.springbootbasics.springBootPractice.service;
 import java.util.List;
 
 import org.jspecify.annotations.Nullable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.springbootbasics.springBootPractice.dto.AddStudentDto;
@@ -17,5 +18,7 @@ public interface StudentService {
     StudentDTO createNewStudent(AddStudentDto addnewStudentDto);
 
     void deleteStudentById(Long studentId);
+
+    StudentDTO updateStudent(Long id, AddStudentDto studentDto);
 
 }

@@ -2,6 +2,7 @@ package com.springbootbasics.springBootPractice.service.impl;
 
 import java.util.List;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.springbootbasics.springBootPractice.dto.AddStudentDto;
@@ -52,6 +53,14 @@ public class StudentServiceImplementation implements StudentService {
         }
         studentRepository.deleteById(studentId);
         
+    }
+
+    @Override
+    public StudentDTO updateStudent(Long id, AddStudentDto studentDto) {
+        Student student = studentRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Student not found with ID " + id));
+        modelMapper.map(studentDto, student);
+        student = studentRepository.save(student);
+        return modelMapper.map(student, StudentDTO.class); 
     }
 
 }
