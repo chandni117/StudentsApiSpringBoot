@@ -12,6 +12,7 @@ import com.springbootbasics.springBootPractice.entity.Student;
 import com.springbootbasics.springBootPractice.repository.StudentRepository;
 import com.springbootbasics.springBootPractice.service.StudentService;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -87,6 +88,25 @@ public class StudentServiceImplementation implements StudentService {
          Student updatedStudent = studentRepository.save(student);
         return modelMapper.map(updatedStudent, StudentDTO.class);
 
+    }
+
+    @Transactional
+    public Student getStudentByIdTest(Long id)
+    {
+        //hibernate creates select query 2 times because without transactional it creates separate persistent Context for each repository call but 
+        // when we add Transactional it creates one time query and persistent context is used to 
+        // check whether this entiy with same primary key is already there. No need to do query from database. 
+        // It is already in persistent State of Entity Lifecycle, commit and rollback would be done automatically
+        Student s1 = studentRepository.findById(id).orElseThrow();
+
+        Student s2 = studentRepository.findById(id).orElseThrow();
+
+        s1.setName("honey");
+
+        
+        //here performed dirty checking and automatically changes done
+        //studentRepository.save(s1);
+        return s1;
     }
 
 }
