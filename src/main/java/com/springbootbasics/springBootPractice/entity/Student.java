@@ -1,5 +1,6 @@
 package com.springbootbasics.springBootPractice.entity;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -33,14 +34,20 @@ public class Student {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, length = 30)
     private String name;
 
-    @Column(unique = true)
+    @ToString.Exclude
+    private LocalDate birthDate;
+
+
+    // @Column(unique = true)
     private String email;
 
     private String gender;
 
     @CreationTimestamp
+    @Column(updatable = false)
     private LocalDateTime createdAt;
 
 }
