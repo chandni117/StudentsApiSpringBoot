@@ -6,7 +6,10 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
+import com.springbootbasics.springBootPractice.entity.BloogGroupCountResponseEntity;
 import com.springbootbasics.springBootPractice.entity.Student;
 import com.springbootbasics.springBootPractice.enums.BloodGroupType;
 import com.springbootbasics.springBootPractice.repository.StudentRepository;
@@ -53,16 +56,16 @@ public class StudentTests {
 
         @Test
         public void countStudentByBloodGroup(){
-            List<Object[]> studentsList = studentRepository.countEachBloodGroupType();
+            List<BloogGroupCountResponseEntity> bloogGroupCountResponseEntity= studentRepository.countEachBloodGroupType();
 
-            for(Object[] s : studentsList){
-                System.out.println(s[0] + " " + s[1]);
+            for(BloogGroupCountResponseEntity s : bloogGroupCountResponseEntity){
+                System.out.println(s);
             }
         }
 
         @Test
         public void findStudents(){
-            List<Student> studentsList = studentRepository.findAllStudents();
+            Page<Student> studentsList = studentRepository.findAllStudents(PageRequest.of(2, 2));
 
             for(Student s : studentsList){
                 System.out.println(s);
