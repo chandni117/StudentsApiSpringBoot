@@ -59,4 +59,23 @@ public class StudentTests {
                 System.out.println(s[0] + " " + s[1]);
             }
         }
+
+        @Test
+        public void findStudents(){
+            List<Student> studentsList = studentRepository.findAllStudents();
+
+            for(Student s : studentsList){
+                System.out.println(s);
+            }
+        }
+
+        @Test
+        public void updateStudentByName(){
+            int rows= studentRepository.updateStudentByName("chikuuu", 3L);
+
+            System.out.println(rows);
+        }
+
+        
+
 }
